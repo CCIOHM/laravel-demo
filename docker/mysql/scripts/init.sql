@@ -1,0 +1,3 @@
+-- CREATE USER 'db_user'@'localhost' IDENTIFIED BY 'db_pass';
+-- GRANT ALL PRIVILEGES ON db_database.* TO 'db_user'@'localhost';
+-- FLUSH PRIVILEGES;

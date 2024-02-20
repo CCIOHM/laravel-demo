@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+
+    php_app:
+        container_name: php_app
+        build:
+            context: .
+            dockerfile: ./docker/app/Dockerfile
+        image: php:8.1
+        restart: unless-stopped
+        working_dir: /var/www/app
+        volumes:
+            - ./:/var/www/app
+            - ./docker/app/local.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - global_network
+        depends_on:
+            - php_mysql
+
+    php_nginx:
+        container_name: php_nginx
+        image: nginx:stable
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/var/www/app
+            - ./docker/nginx/conf.d/app.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - global_network
+        depends_on:
+            - php_app
+
+    php_mysql:
+        container_name: php_mysql
+        image: mysql:5.7
+        restart: unless-stopped
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_ROOT_PASSWORD: mypassword
+            MYSQL_DATABASE: mydatabase
+            MYSQL_USER: myuser
+            MYSQL_PASSWORD: mypassword
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - php_mysql_volume:/var/lib/mysql
+            - ./docker/mysql/shared:/root/shared
+            - ./docker/mysql/scripts:/docker-entrypoint-initdb.d
+        networks:
+            - global_network
+        healthcheck:
+            test: [ "CMD", "mysqladmin", "ping", "-pdb_pass" ]
+            retries: 3
+            timeout: 5s
+
+volumes:
+    php_mysql_volume:
+        driver: local
+
+networks:
+    global_network:
+        driver: bridge
