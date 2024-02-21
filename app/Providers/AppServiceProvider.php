@@ -20,9 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Illuminate\Support\Facades\Blade
-        Blade::directive('route', function ($expression) {
-            return "<?php echo e(route($expression)); ?>";
-        });
+
     }
 }
