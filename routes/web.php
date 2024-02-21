@@ -22,6 +22,9 @@ use App\Http\Controllers\{
 Route::get('/', [WelcomeController::class, 'index'])
     ->name('welcome');
 
+Route::get('/no-json', [WelcomeController::class, 'index'])
+    ->middleware('stop.json');
+
 Route::get('/pokemons/index', [PokemonsController::class, 'index'])
     ->name('pokemons.index');
 
