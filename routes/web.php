@@ -31,6 +31,9 @@ Route::get('/pokemons/index', [PokemonsController::class, 'index'])
 Route::get('/pokemons/create', [PokemonsController::class, 'create'])
     ->name('pokemons.create');
 
+Route::get('/pokemons/edit/{id}', [PokemonsController::class, 'edit'])
+    ->name('pokemons.edit');
+
 Route::get('/pokemons/show/{id}', [PokemonsController::class, 'show'])
     ->name('pokemons.show');
 

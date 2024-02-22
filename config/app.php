@@ -16,7 +16,12 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Super Pokemons App'),
+    'name_short' => env('APP_NAME_SHORT', 'SPA'),
+    'name_allowed' => [
+        'short1' => 'SPA',
+        'short2' => 'SPA2',
+    ],
 
     /*
     |--------------------------------------------------------------------------

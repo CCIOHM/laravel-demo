@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 return [
+    'password_complex' => 'Le champs :attribute doit avoir 1 lettre minuscule, 1 majuscule, 1 chiffre, et un caractère spécial parmis: @$!%*?&',
+
     'accepted'             => 'The :attribute must be accepted.',
     'accepted_if'          => 'The :attribute must be accepted when :other is :value.',
     'active_url'           => 'The :attribute is not a valid URL.',

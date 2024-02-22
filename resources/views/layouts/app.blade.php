@@ -18,6 +18,24 @@
 <body>
     @include('components.menu')
 
+    @if($errs = $errors->all())
+        <section class="errors">
+            <ul>
+                @foreach($errs as $err)
+                    <li class="text-danger">{{$err}}</li>
+                @endforeach
+            </ul>
+        </section>
+    @endif
+
+    @if($message = session('message'))
+        <section>
+            <p class="text-success">
+                {{ $message }}
+            </p>
+        </section>
+    @endif
+
     <main>
         @yield('content')
     </main>

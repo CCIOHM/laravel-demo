@@ -3,13 +3,7 @@
 @section('title', 'Edit a pokemon')
 
 @section('content')
-    <a href="{{ route('pokemon.index') }}">List of pokemons</a>
-    <a href="{{ route('pokemon.create') }}">Create a pokemon</a>
+    <h2>{{ __('Edit a pokemon').': '.$pokemon->label }}</h2>
 
-    <p>
-        {{ $lorem }}
-    </p>
-    <p>
-        {{ $ipsum }}
-    </p>
+    <p>Coming Soon</p>
 @endsection
