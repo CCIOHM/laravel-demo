@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{
     WelcomeController,
+    AuthController,
     PokemonsController,
     UsersController,
 };
@@ -19,14 +20,30 @@ use App\Http\Controllers\{
 |
 */
 
+// Welcome
 Route::get('/', [WelcomeController::class, 'index'])
     ->name('welcome');
 
-Route::get('/no-json', [WelcomeController::class, 'index'])
-    ->middleware('stop.json');
+// Auth
+Route::get('/register', [AuthController::class, 'register'])
+    ->name('auth.register');
+
+Route::post('/register', [AuthController::class, 'store'])
+    ->name('auth.store');
+
+Route::get('/login', [AuthController::class, 'login'])
+    ->name('auth.login');
+
+Route::post('/login', [AuthController::class, 'check'])
+    ->name('auth.check');
+
+
+
+// Pokemons
 
 Route::get('/pokemons/index', [PokemonsController::class, 'index'])
-    ->name('pokemons.index');
+    ->name('pokemons.index')
+    ->middleware('auth');
 
 Route::get('/pokemons/create', [PokemonsController::class, 'create'])
     ->name('pokemons.create');
@@ -50,7 +67,5 @@ Route::delete('/pokemons/delete/{id}', [PokemonsController::class, 'delete'])
 Route::post('/data', [PokemonsController::class, 'data']);
 
 
-
-
-Route::get('/users/index', [UsersController::class, 'index'])
-    ->name('users.index');
+Route::get('/no-json', [WelcomeController::class, 'index'])
+    ->middleware('stop.json');
